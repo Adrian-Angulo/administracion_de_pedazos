@@ -68,8 +68,6 @@ class MinimalNumberInput extends StatelessWidget {
           ),
         ),
 
-        const SizedBox(height: 6),
-
         // Línea inferior (underline)
         Container(
           height: 2,

@@ -53,7 +53,7 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
               ),
 
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Column(
                   children: [
                     SizedBox(height: 16),

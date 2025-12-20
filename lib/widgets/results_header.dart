@@ -17,12 +17,12 @@ class ResultsHeader extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 8),
+      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            '$resultCount resultado${resultCount != 1 ? 's' : ''} encontrado${resultCount != 1 ? 's' : ''}',
+            '$resultCount resultado${resultCount != 1 ? 's' : ''} ',
             style: TextStyle(
               color: colorScheme.onSurface.withOpacity(0.6),
               fontSize: 14,

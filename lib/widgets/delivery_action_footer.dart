@@ -4,12 +4,14 @@ class DeliveryActionFooter extends StatelessWidget {
   final int selectedCount;
   final VoidCallback onRegister;
   final String? scheduleText;
+  final double totalValue;
 
   const DeliveryActionFooter({
     super.key,
     required this.selectedCount,
     required this.onRegister,
     this.scheduleText,
+    required this.totalValue,
   });
 
   @override
@@ -42,7 +44,7 @@ class DeliveryActionFooter extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 Text(
-                  "\$ 40.000",
+                  "\$ $totalValue",
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.primary,
                     fontWeight: FontWeight.bold,
@@ -81,7 +83,7 @@ class DeliveryActionFooter extends StatelessWidget {
                         : 'Selecciona al menos un pedazo',
                     style: TextStyle(
                       color: selectedCount > 0 ? Colors.white : Colors.grey,
-                      fontSize: 16,
+                      fontSize: 14,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

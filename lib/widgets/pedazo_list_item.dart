@@ -1,12 +1,14 @@
+import 'package:administracion_de_pedazos/models/Pedazo.dart';
 import 'package:flutter/material.dart';
 
 class PedazoListItem extends StatelessWidget {
+  final Pedazo pedazo;
   final bool isSelected;
   final VoidCallback onToggle;
 
   const PedazoListItem({
     super.key,
-
+    required this.pedazo,
     required this.isSelected,
     required this.onToggle,
   });
@@ -34,7 +36,13 @@ class PedazoListItem extends StatelessWidget {
             CircleAvatar(
               radius: 28,
               backgroundColor: Colors.white.withOpacity(0.2),
-              child: Text("404"),
+              child: Text(
+                pedazo.numero,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
             const SizedBox(width: 12),
 
@@ -48,7 +56,7 @@ class PedazoListItem extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        'Para: Adrian',
+                        'Para: ${pedazo.para}',
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 16,
@@ -57,7 +65,7 @@ class PedazoListItem extends StatelessWidget {
                       ),
                       const SizedBox(width: 20),
                       Text(
-                        '\$ 20.000',
+                        '\$ ${pedazo.valor.toStringAsFixed(0)}',
                         style: TextStyle(
                           color: colorScheme.primary,
                           fontSize: 16,
@@ -69,7 +77,7 @@ class PedazoListItem extends StatelessWidget {
                   const SizedBox(height: 4),
                   // Descripción
                   Text(
-                    "De: Adrian",
+                    "De: ${pedazo.de}",
                     style: TextStyle(
                       color: Colors.white.withOpacity(0.6),
                       fontSize: 13,
