@@ -1,9 +1,10 @@
 import 'package:administracion_de_pedazos/models/Pedazo.dart';
-import 'package:administracion_de_pedazos/settings/listPedazos.dart';
+import 'package:administracion_de_pedazos/providers/PedazosProvider.dart';
 import 'package:administracion_de_pedazos/widgets/delivery_action_footer.dart';
 import 'package:administracion_de_pedazos/widgets/pedazo_list_item.dart';
 import 'package:administracion_de_pedazos/widgets/results_header.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FiltroScreens extends StatefulWidget {
   const FiltroScreens({super.key});
@@ -34,6 +35,7 @@ class _FiltroScreensState extends State<FiltroScreens> {
         _searchQuery = _searchController.text;
       });
     });
+    context.read<PedazosProvider>().cargarPedazos();
   }
 
   @override
@@ -46,24 +48,23 @@ class _FiltroScreensState extends State<FiltroScreens> {
   /// Filtra la lista de pedazos según el texto de búsqueda
   /// Busca coincidencias en los campos: para, de, y numero
   List<Pedazo> _getFilteredPedazos() {
+    List<Pedazo> listaPedazos = context.watch<PedazosProvider>().pedazos;
     // Si no hay búsqueda, retornar todos los pedazos
     if (_searchQuery.isEmpty) {
-      return listPedazos;
+      return listaPedazos;
     }
 
     // Convertir la búsqueda a minúsculas para búsqueda case-insensitive
     final query = _searchQuery.toLowerCase();
 
     // Filtrar pedazos que coincidan en alguno de los campos
-    return listPedazos.where((pedazo) {
-      final para = pedazo.para.toLowerCase();
-      final de = pedazo.de.toLowerCase();
+    return listaPedazos.where((pedazo) {
+      final para = pedazo.remitente.toLowerCase();
+      final de = pedazo.destinatario.toLowerCase();
       final numero = pedazo.numero.toLowerCase();
 
       // Retornar true si algún campo contiene la búsqueda
-      return para.contains(query) ||
-          de.contains(query) ||
-          numero.contains(query);
+      return para.contains(query) || numero.contains(query);
     }).toList();
   }
 

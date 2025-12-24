@@ -1,15 +1,14 @@
 class Pedazo {
   final int id;
-  final String para;
-  final String de;
+  final String remitente;
+  final String destinatario;
   final double valor;
   final String numero;
 
-
   Pedazo({
     required this.id,
-    required this.para,
-    required this.de,
+    required this.remitente,
+    required this.destinatario,
     required this.valor,
     required this.numero,
   });
@@ -17,8 +16,8 @@ class Pedazo {
   factory Pedazo.fromJson(Map<String, dynamic> json) {
     return Pedazo(
       id: json['id'],
-      para: json['para'],
-      de: json['de'],
+      remitente: json['remitente'],
+      destinatario: json['destinatario'],
       valor: json['valor'],
       numero: json['numero'],
     );
@@ -27,8 +26,8 @@ class Pedazo {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'para': para,
-      'de': de,
+      'remitente': remitente,
+      'destinatario': destinatario,
       'valor': valor,
       'numero': numero,
     };
@@ -36,7 +35,6 @@ class Pedazo {
 
   @override
   String toString() {
-    return 'Pedazo(id: $id, para: $para, de: $de, valor: $valor, numero: $numero)';
+    return 'Pedazo(id: $id, remitente: $remitente, destinatario: $destinatario, valor: $valor, numero: $numero)';
   }
-
 }

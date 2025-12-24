@@ -1,8 +1,11 @@
+import 'package:administracion_de_pedazos/providers/pageProvider.dart';
+import 'package:administracion_de_pedazos/screens/registrar_screen.dart';
 import 'package:administracion_de_pedazos/widgets/font.dart';
 import 'package:administracion_de_pedazos/widgets/info_card.dart';
 import 'package:administracion_de_pedazos/widgets/primary_action_button.dart';
 import 'package:administracion_de_pedazos/widgets/secundary_action_button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DasboardScreen extends StatefulWidget {
   const DasboardScreen({super.key});
@@ -14,6 +17,7 @@ class DasboardScreen extends StatefulWidget {
 class _DasboardScreenState extends State<DasboardScreen> {
   @override
   Widget build(BuildContext context) {
+    final provider = context.read<Pageprovider>();
     return Scaffold(
       appBar: AppBar(
         title: titlePrimary("Dasboard"),
@@ -48,7 +52,9 @@ class _DasboardScreenState extends State<DasboardScreen> {
             PrimaryActionButton(
               label: "Registrar Pedazo",
               icon: Icons.add,
-              onPressed: () {},
+              onPressed: () {
+                provider.pageRegistro();
+              },
             ),
 
             Row(
@@ -57,7 +63,9 @@ class _DasboardScreenState extends State<DasboardScreen> {
                 SecundaryActionButton(
                   label: "Ver Pedazos",
                   icon: Icons.search,
-                  onPressed: () {},
+                  onPressed: () {
+                    provider.pageVerPedazos();
+                  },
                 ),
                 SecundaryActionButton(
                   label: "Ver Historial",

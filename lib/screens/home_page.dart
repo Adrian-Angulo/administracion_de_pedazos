@@ -1,7 +1,8 @@
-
+import 'package:administracion_de_pedazos/providers/pageProvider.dart';
 import 'package:administracion_de_pedazos/settings/pages.dart';
 import 'package:administracion_de_pedazos/widgets/font.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,22 +12,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int pageIndex = 0;
   @override
   Widget build(BuildContext context) {
+    final provider = context.read<Pageprovider>();
+    final pageIndex = context.watch<Pageprovider>().pageIndex;
     return Scaffold(
-      
       body: AnimatedSwitcher(
         duration: const Duration(milliseconds: 250),
         child: pages[pageIndex],
       ),
 
       bottomNavigationBar: NavigationBar(
-        selectedIndex: pageIndex,
+        selectedIndex: context.watch<Pageprovider>().pageIndex,
         onDestinationSelected: (value) {
-          setState(() {
-            pageIndex = value;
-          });
+          provider.cambiarPage(value);
         },
         destinations: [
           NavigationDestination(

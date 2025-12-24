@@ -1,9 +1,12 @@
+import 'package:administracion_de_pedazos/models/Pedazo.dart';
+import 'package:administracion_de_pedazos/providers/PedazosProvider.dart';
 import 'package:administracion_de_pedazos/widgets/card_widget.dart';
 import 'package:administracion_de_pedazos/widgets/font.dart';
 import 'package:administracion_de_pedazos/widgets/input.dart';
 import 'package:administracion_de_pedazos/widgets/minimal_number_input.dart';
 import 'package:administracion_de_pedazos/widgets/primary_action_button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class RegistrarScreen extends StatefulWidget {
   const RegistrarScreen({super.key});
@@ -21,6 +24,7 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.read<PedazosProvider>();
     final colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: AppBar(
@@ -92,6 +96,10 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
                                   children: [
                                     Text("Valor del Pedazo"),
                                     TextFormField(
+                                      keyboardType:
+                                          TextInputType.numberWithOptions(
+                                            decimal: true,
+                                          ),
                                       controller: valorCtrl,
                                       validator: (value) {
                                         if (value == null || value.isEmpty) {
@@ -143,7 +151,16 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
                       label: "Registrar Entrega",
                       icon: Icons.check_circle,
                       onPressed: () {
-                        if (_formKey.currentState!.validate()) {}
+                        if (_formKey.currentState!.validate()) {
+                          Pedazo pedazo = Pedazo(
+                            id: 0,
+                            remitente: remitenteCtrl.text.toLowerCase(),
+                            destinatario: destinatarioCtrl.text.toLowerCase(),
+                            valor: double.parse(valorCtrl.text),
+                            numero: numeroCtrl.text,
+                          );
+                          provider.agregarPedazo(pedazo);
+                        }
                       },
                     ),
                   ],

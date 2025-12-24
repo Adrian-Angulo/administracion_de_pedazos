@@ -56,7 +56,7 @@ class PedazoListItem extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        'Para: ${pedazo.para}',
+                        'Para: ${pedazo.destinatario}',
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 16,
@@ -77,7 +77,7 @@ class PedazoListItem extends StatelessWidget {
                   const SizedBox(height: 4),
                   // Descripción
                   Text(
-                    "De: ${pedazo.de}",
+                    "De: ${pedazo.remitente}",
                     style: TextStyle(
                       color: Colors.white.withOpacity(0.6),
                       fontSize: 13,
