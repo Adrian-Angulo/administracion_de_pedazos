@@ -49,7 +49,7 @@ class MessageUtils {
     CustomMessageWidget.showSnackBar(
       context,
       message: '🗑️ Pedazo eliminado',
-      type: MessageType.warning,
+      type: MessageType.info,
       subtitle: 'Pedazo #$numero eliminado de la lista',
       duration: const Duration(seconds: 3),
     );
@@ -66,8 +66,6 @@ class MessageUtils {
       duration: const Duration(seconds: 4),
     );
   }
-
-
 
   /// Muestra mensaje cuando falla una entrega
   static void showDeliveryError(BuildContext context, {String? errorDetails}) {

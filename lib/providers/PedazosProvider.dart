@@ -109,12 +109,14 @@ class PedazosProvider extends ChangeNotifier {
 
     // Filtrar pedazos que coincidan en alguno de los campos
     return listaPedazos.where((pedazo) {
-      final para = pedazo.remitente.toLowerCase();
-      final de = pedazo.destinatario.toLowerCase();
+      final para = pedazo.destinatario.toLowerCase();
+      final de = pedazo.remitente.toLowerCase();
       final numero = pedazo.numero.toLowerCase();
 
       // Retornar true si algún campo contiene la búsqueda
-      return para.contains(query) || numero.contains(query);
+      return para.contains(query) ||
+          de.contains(query) ||
+          numero.contains(query);
     }).toList();
   }
 
@@ -140,6 +142,16 @@ class PedazosProvider extends ChangeNotifier {
       if (_selectedIds.contains(pedazo.id)) {
         total += pedazo.valor;
       }
+    }
+
+    return total;
+  }
+
+  double calcularTotalGeneral() {
+    double total = 0;
+    // Sumar el valor de cada pedazo seleccionado
+    for (var pedazo in _pedazos) {
+      total += pedazo.valor;
     }
 
     return total;

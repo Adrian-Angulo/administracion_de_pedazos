@@ -1,3 +1,5 @@
+import 'package:administracion_de_pedazos/formatters/CurrencyInputFormatter.dart';
+import 'package:administracion_de_pedazos/formatters/formatters.dart';
 import 'package:administracion_de_pedazos/models/Pedazo.dart';
 import 'package:administracion_de_pedazos/providers/PedazosProvider.dart';
 import 'package:administracion_de_pedazos/utils/message_utils.dart';
@@ -7,6 +9,7 @@ import 'package:administracion_de_pedazos/widgets/input.dart';
 import 'package:administracion_de_pedazos/widgets/minimal_number_input.dart';
 import 'package:administracion_de_pedazos/widgets/primary_action_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 class RegistrarScreen extends StatefulWidget {
@@ -109,6 +112,10 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
                                           TextInputType.numberWithOptions(
                                             decimal: true,
                                           ),
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.digitsOnly,
+                                        CurrencyInputFormatter(),
+                                      ],
                                       controller: valorCtrl,
                                       validator: (value) {
                                         if (value == null || value.isEmpty) {
@@ -165,7 +172,7 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
                             0,
                             remitente: remitenteCtrl.text.toLowerCase(),
                             destinatario: destinatarioCtrl.text.toLowerCase(),
-                            valor: double.parse(valorCtrl.text),
+                            valor: obtenerValorDouble(valorCtrl.text),
                             numero: numeroCtrl.text,
                           );
                           provider.agregarPedazo(pedazo);

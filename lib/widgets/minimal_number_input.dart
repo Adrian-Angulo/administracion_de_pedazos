@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 /// Input minimalista para números
 /// Diseño: texto grande centrado + línea inferior
@@ -37,6 +38,10 @@ class MinimalNumberInput extends StatelessWidget {
           controller: controller,
           readOnly: readOnly,
 
+          inputFormatters: [
+            FilteringTextInputFormatter.digitsOnly,
+            LengthLimitingTextInputFormatter(3),
+          ],
           // Teclado numérico
           keyboardType: TextInputType.number,
 

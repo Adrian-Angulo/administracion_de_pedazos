@@ -1,3 +1,4 @@
+import 'package:administracion_de_pedazos/formatters/formatters.dart';
 import 'package:administracion_de_pedazos/models/Pedazo.dart';
 import 'package:flutter/material.dart';
 
@@ -65,7 +66,7 @@ class PedazoListItem extends StatelessWidget {
                       ),
                       const SizedBox(width: 20),
                       Text(
-                        '\$ ${pedazo.valor.toStringAsFixed(0)}',
+                        '\$ ${formatCOP(pedazo.valor)}',
                         style: TextStyle(
                           color: colorScheme.primary,
                           fontSize: 16,

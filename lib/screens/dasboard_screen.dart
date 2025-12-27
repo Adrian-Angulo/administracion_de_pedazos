@@ -1,3 +1,5 @@
+import 'package:administracion_de_pedazos/formatters/formatters.dart';
+import 'package:administracion_de_pedazos/providers/PedazosProvider.dart';
 import 'package:administracion_de_pedazos/providers/pageProvider.dart';
 import 'package:administracion_de_pedazos/screens/registrar_screen.dart';
 import 'package:administracion_de_pedazos/widgets/font.dart';
@@ -18,6 +20,7 @@ class _DasboardScreenState extends State<DasboardScreen> {
   @override
   Widget build(BuildContext context) {
     final provider = context.read<Pageprovider>();
+    final providerPedazo = context.watch<PedazosProvider>();
     return Scaffold(
       appBar: AppBar(
         title: titlePrimary("Dasboard"),
@@ -34,12 +37,12 @@ class _DasboardScreenState extends State<DasboardScreen> {
               children: [
                 InfoCard(
                   icon: Icons.app_registration_outlined,
-                  value: "12",
+                  value: "${providerPedazo.totalPedazos}",
                   label: "Total de pedazos registrados",
                 ),
                 InfoCard(
                   icon: Icons.monetization_on,
-                  value: "20000",
+                  value: formatCOP(providerPedazo.calcularTotalGeneral()),
                   label: "Total dinero acumulado",
                 ),
               ],

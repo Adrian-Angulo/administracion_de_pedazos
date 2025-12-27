@@ -1,3 +1,4 @@
+import 'package:administracion_de_pedazos/formatters/formatters.dart';
 import 'package:flutter/material.dart';
 
 class DeliveryActionFooter extends StatelessWidget {
@@ -44,7 +45,7 @@ class DeliveryActionFooter extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 Text(
-                  "\$ $totalValue",
+                  "\$ ${formatCOP(totalValue)}",
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.primary,
                     fontWeight: FontWeight.bold,

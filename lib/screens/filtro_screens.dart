@@ -157,7 +157,7 @@ class _FiltroScreensState extends State<FiltroScreens> {
                       final pedazo = filteredPedazos[index];
 
                       return Dismissible(
-                        key: ValueKey(index),
+                        key: ValueKey(pedazo.id),
                         direction: DismissDirection.endToStart,
                         background: Container(
                           color: Colors.red,
@@ -168,6 +168,10 @@ class _FiltroScreensState extends State<FiltroScreens> {
                         onDismissed: (direction) {
                           setState(() {
                             provider.eliminarPedazo(pedazo.id);
+                            MessageUtils.showPedazoDeleted(
+                              context,
+                              numero: pedazo.numero,
+                            );
                           });
                         },
                         child: PedazoListItem(
