@@ -1,5 +1,6 @@
 import 'package:administracion_de_pedazos/models/Pedazo.dart';
 import 'package:administracion_de_pedazos/providers/PedazosProvider.dart';
+import 'package:administracion_de_pedazos/utils/message_utils.dart';
 import 'package:administracion_de_pedazos/widgets/card_widget.dart';
 import 'package:administracion_de_pedazos/widgets/font.dart';
 import 'package:administracion_de_pedazos/widgets/input.dart';
@@ -168,6 +169,7 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
                             numero: numeroCtrl.text,
                           );
                           provider.agregarPedazo(pedazo);
+                          MessageUtils.showPedazoAdded(context);
                           limpiar();
                         }
                       },
