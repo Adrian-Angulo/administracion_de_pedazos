@@ -23,7 +23,7 @@ class DatabaseHelper {
       onCreate: (db, version) {
         // SQL para crear la tabla
         return db.execute(
-          'CREATE TABLE $_tableName(id INTEGER PRIMARY KEY, remitente TEXT, destinatario TEXT, valor REAL, numero TEXT )',
+          'CREATE TABLE $_tableName(id INTEGER PRIMARY KEY AUTOINCREMENT, remitente TEXT, destinatario TEXT, valor REAL, numero TEXT )',
         );
       },
     );
@@ -47,7 +47,7 @@ class DatabaseHelper {
     // Mapea la lista de Maps a una lista de objetos Pedazo
     return List.generate(maps.length, (i) {
       return Pedazo(
-        id: maps[i]['id'],
+        maps[i]['id'],
         remitente: maps[i]['remitente'],
         destinatario: maps[i]['destinatario'],
         valor: maps[i]['valor'],

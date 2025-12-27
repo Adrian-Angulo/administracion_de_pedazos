@@ -26,6 +26,14 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
   Widget build(BuildContext context) {
     final provider = context.read<PedazosProvider>();
     final colorScheme = Theme.of(context).colorScheme;
+
+    void limpiar() {
+      remitenteCtrl.clear();
+      destinatarioCtrl.clear();
+      numeroCtrl.clear();
+      valorCtrl.clear();
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: titlePrimary("Nuevo Pedazo"),
@@ -153,13 +161,14 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           Pedazo pedazo = Pedazo(
-                            id: 0,
+                            0,
                             remitente: remitenteCtrl.text.toLowerCase(),
                             destinatario: destinatarioCtrl.text.toLowerCase(),
                             valor: double.parse(valorCtrl.text),
                             numero: numeroCtrl.text,
                           );
                           provider.agregarPedazo(pedazo);
+                          limpiar();
                         }
                       },
                     ),

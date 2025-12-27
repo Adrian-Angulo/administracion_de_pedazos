@@ -6,36 +6,7 @@ import 'package:flutter/foundation.dart';
 /// Demuestra las mejores prácticas de Provider
 class PedazosProvider extends ChangeNotifier {
   // 1. Estado privado
-  List<Pedazo> _pedazos = [
-    Pedazo(
-      id: 0,
-      remitente: "Camilo",
-      destinatario: "Adrian",
-      valor: 3000,
-      numero: "432",
-    ),
-    Pedazo(
-      id: 1,
-      remitente: "Camilo",
-      destinatario: "Adrian",
-      valor: 3000,
-      numero: "432",
-    ),
-    Pedazo(
-      id: 2,
-      remitente: "Camilo",
-      destinatario: "Adrian",
-      valor: 3000,
-      numero: "432",
-    ),
-    Pedazo(
-      id: 3,
-      remitente: "Camilo",
-      destinatario: "Adrian",
-      valor: 3000,
-      numero: "432",
-    ),
-  ];
+  List<Pedazo> _pedazos = [];
 
   // iniciarlizar el repositorio
 
@@ -93,8 +64,6 @@ class PedazosProvider extends ChangeNotifier {
       return false;
     }
   }
-
-
 
   void limpiarError() {
     _error = '';

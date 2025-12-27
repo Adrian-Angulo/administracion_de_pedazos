@@ -5,8 +5,8 @@ class Pedazo {
   final double valor;
   final String numero;
 
-  Pedazo({
-    required this.id,
+  Pedazo(
+    this.id, {
     required this.remitente,
     required this.destinatario,
     required this.valor,
@@ -15,7 +15,7 @@ class Pedazo {
 
   factory Pedazo.fromJson(Map<String, dynamic> json) {
     return Pedazo(
-      id: json['id'],
+      json['id'],
       remitente: json['remitente'],
       destinatario: json['destinatario'],
       valor: json['valor'],
@@ -25,7 +25,6 @@ class Pedazo {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'remitente': remitente,
       'destinatario': destinatario,
       'valor': valor,
