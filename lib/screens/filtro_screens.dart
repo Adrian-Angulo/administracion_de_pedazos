@@ -1,5 +1,6 @@
 import 'package:administracion_de_pedazos/models/Pedazo.dart';
 import 'package:administracion_de_pedazos/providers/PedazosProvider.dart';
+import 'package:administracion_de_pedazos/utils/message_utils.dart';
 import 'package:administracion_de_pedazos/widgets/delivery_action_footer.dart';
 import 'package:administracion_de_pedazos/widgets/pedazo_list_item.dart';
 import 'package:administracion_de_pedazos/widgets/results_header.dart';
@@ -41,7 +42,7 @@ class _FiltroScreensState extends State<FiltroScreens> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = context.read<PedazosProvider>();
+    final provider = context.watch<PedazosProvider>();
 
     // Obtener la lista de pedazos filtrados
     final filteredPedazos = provider.getFilteredPedazos();
@@ -59,32 +60,12 @@ class _FiltroScreensState extends State<FiltroScreens> {
 
     /// Registra la entrega de los pedazos seleccionados
     void registerDelivery() {
-      // Por ahora solo mostrar un mensaje
-      if (provider.selectedIds.isEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('No hay pedazos seleccionados'),
-            backgroundColor: Colors.red,
-          ),
-        );
-        return;
-      }
-
-      final total = provider.calculateTotal();
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'Entrega registrada: ${provider.selectedIds.length} pedazos por un total de \$${total.toStringAsFixed(0)}',
-          ),
-          backgroundColor: Colors.green,
-          duration: const Duration(seconds: 3),
-        ),
-      );
+      MessageUtils.showSingleDelivery(context);
 
       // Limpiar la selección después de registrar
-
+      provider.eliminacionMultiple();
       provider.limpiarSeletedId();
+      
     }
 
     return Scaffold(

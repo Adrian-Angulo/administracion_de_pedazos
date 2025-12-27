@@ -7,8 +7,7 @@ class MessageUtils {
   // ========== MENSAJES DE PEDAZOS ==========
 
   /// Muestra mensaje cuando se agrega un pedazo exitosamente
-  static void showPedazoAdded(
-    BuildContext context, ) {
+  static void showPedazoAdded(BuildContext context) {
     CustomMessageWidget.showSnackBar(
       context,
       message: 'Pedazo registrado exitosamente',
@@ -59,37 +58,16 @@ class MessageUtils {
   // ========== MENSAJES DE ENTREGAS ==========
 
   /// Muestra mensaje cuando se entrega un solo pedazo
-  static void showSingleDelivery(
-    BuildContext context, {
-    required String destinatario,
-    required double valor,
-    required String numero,
-  }) {
+  static void showSingleDelivery(BuildContext context) {
     CustomMessageWidget.showSnackBar(
       context,
-      message: '🚚 Entrega registrada',
-      type: MessageType.delivery,
-      subtitle:
-          'Para: $destinatario • \$${valor.toStringAsFixed(0)} • #$numero',
+      message: 'Entrega realizada con exito',
+      type: MessageType.success,
       duration: const Duration(seconds: 4),
     );
   }
 
-  /// Muestra mensaje cuando se entregan múltiples pedazos
-  static void showMultipleDeliveries(
-    BuildContext context, {
-    required int cantidad,
-    required double valorTotal,
-  }) {
-    CustomMessageWidget.showSnackBar(
-      context,
-      message: '🚚 Entregas registradas',
-      type: MessageType.delivery,
-      subtitle:
-          '$cantidad pedazo${cantidad > 1 ? 's' : ''} entregado${cantidad > 1 ? 's' : ''} • Total: \$${valorTotal.toStringAsFixed(0)}',
-      duration: const Duration(seconds: 4),
-    );
-  }
+
 
   /// Muestra mensaje cuando falla una entrega
   static void showDeliveryError(BuildContext context, {String? errorDetails}) {
@@ -101,5 +79,4 @@ class MessageUtils {
       duration: const Duration(seconds: 5),
     );
   }
-
 }

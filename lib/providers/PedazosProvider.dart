@@ -71,6 +71,13 @@ class PedazosProvider extends ChangeNotifier {
     }
   }
 
+  Future<void> eliminacionMultiple() async {
+    for (var id in _selectedIds.toList()) {
+      await eliminarPedazo(id);
+    }
+    cargarPedazos();
+  }
+
   void limpiarError() {
     _error = '';
     notifyListeners();
