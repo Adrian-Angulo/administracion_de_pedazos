@@ -7,6 +7,10 @@ import 'package:flutter/foundation.dart';
 class PedazosProvider extends ChangeNotifier {
   // 1. Estado privado
   List<Pedazo> _pedazos = [];
+  // Texto de búsqueda actual
+  String _searchQuery = '';
+  // Set que almacena los IDs de los pedazos seleccionados
+  final Set<int> _selectedIds = {};
 
   // iniciarlizar el repositorio
 
@@ -20,6 +24,8 @@ class PedazosProvider extends ChangeNotifier {
   String get error => _error;
   int get totalPedazos => _pedazos.length;
   bool get tienePedazos => _pedazos.isNotEmpty;
+  Set<int> get selectedIds => _selectedIds;
+  String get searchQuery => _searchQuery;
 
   Future<void> cargarPedazos() async {
     _pedazos = await _repository.getPedazos();
@@ -78,4 +84,95 @@ class PedazosProvider extends ChangeNotifier {
         .where((pedazo) => pedazo.toLowerCase().contains(query.toLowerCase()))
         .toList();
   } */
+
+  /// Filtra la lista de pedazos según el texto de búsqueda
+  /// Busca coincidencias en los campos: para, de, y numero
+  List<Pedazo> getFilteredPedazos() {
+    List<Pedazo> listaPedazos = _pedazos;
+    // Si no hay búsqueda, retornar todos los pedazos
+    if (_searchQuery.isEmpty) {
+      return listaPedazos;
+    }
+
+    // Convertir la búsqueda a minúsculas para búsqueda case-insensitive
+    final query = _searchQuery.toLowerCase();
+
+    // Filtrar pedazos que coincidan en alguno de los campos
+    return listaPedazos.where((pedazo) {
+      final para = pedazo.remitente.toLowerCase();
+      final de = pedazo.destinatario.toLowerCase();
+      final numero = pedazo.numero.toLowerCase();
+
+      // Retornar true si algún campo contiene la búsqueda
+      return para.contains(query) || numero.contains(query);
+    }).toList();
+  }
+
+  void cambiarQuery(String texto) {
+    _searchQuery = texto;
+    notifyListeners();
+  }
+
+  void limpiarSeletedId() {
+    _selectedIds.clear();
+    notifyListeners();
+  }
+
+  /// Calcula el valor total de los pedazos seleccionados
+  double calculateTotal() {
+    double total = 0;
+
+    // Obtener los pedazos filtrados actualmente
+    final filteredPedazos = getFilteredPedazos();
+
+    // Sumar el valor de cada pedazo seleccionado
+    for (var pedazo in filteredPedazos) {
+      if (_selectedIds.contains(pedazo.id)) {
+        total += pedazo.valor;
+      }
+    }
+
+    return total;
+  }
+
+  /// Alterna la selección de todos los pedazos filtrados
+  void toggleSelectAll() {
+    final filteredPedazos = getFilteredPedazos();
+
+    // Si todos están seleccionados, deseleccionar todos
+    if (areAllSelected(filteredPedazos)) {
+      _selectedIds.clear();
+      notifyListeners();
+    } else {
+      // Si no todos están seleccionados, seleccionar todos los filtrados
+      for (var pedazo in filteredPedazos) {
+        _selectedIds.add(pedazo.id);
+        notifyListeners();
+      }
+    }
+  }
+
+  /// Verifica si todos los pedazos de la lista están seleccionados
+  bool areAllSelected(List<Pedazo> pedazos) {
+    if (pedazos.isEmpty) return false;
+
+    // Verificar si todos los IDs de los pedazos filtrados están en el set de seleccionados
+    for (var pedazo in pedazos) {
+      if (!_selectedIds.contains(pedazo.id)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /// Alterna la selección de un pedazo individual
+  void toggleSelection(int pedazoId) {
+    if (_selectedIds.contains(pedazoId)) {
+      _selectedIds.remove(pedazoId);
+      notifyListeners();
+    } else {
+      _selectedIds.add(pedazoId);
+      notifyListeners();
+    }
+  }
 }
