@@ -58,22 +58,25 @@ class PedazosProvider extends ChangeNotifier {
     }
   }
 
-  Future<bool> eliminarPedazo(int index) async {
+  Future<void> eliminarPedazo(int id) async {
     try {
-      await _repository.eliminarPedazo(index);
-      _error = '';
+      // 1️⃣ Eliminar primero del estado local
+      _pedazos.removeWhere((p) => p.id == id);
       notifyListeners();
-      return true;
+
+      // 2️⃣ Luego eliminar en repositorio (API / DB)
+      await _repository.eliminarPedazo(id);
+
+      _error = '';
     } catch (e) {
       _error = 'Error al eliminar pedazo: $e';
       notifyListeners();
-      return false;
     }
   }
 
   Future<void> eliminacionMultiple() async {
     for (var id in _selectedIds.toList()) {
-      await eliminarPedazo(id);
+      eliminarPedazo(id);
     }
     cargarPedazos();
   }

@@ -65,7 +65,6 @@ class _FiltroScreensState extends State<FiltroScreens> {
       // Limpiar la selección después de registrar
       provider.eliminacionMultiple();
       provider.limpiarSeletedId();
-      
     }
 
     return Scaffold(
@@ -157,10 +156,25 @@ class _FiltroScreensState extends State<FiltroScreens> {
                     itemBuilder: (context, index) {
                       final pedazo = filteredPedazos[index];
 
-                      return PedazoListItem(
-                        pedazo: pedazo,
-                        isSelected: provider.selectedIds.contains(pedazo.id),
-                        onToggle: () => provider.toggleSelection(pedazo.id),
+                      return Dismissible(
+                        key: ValueKey(index),
+                        direction: DismissDirection.endToStart,
+                        background: Container(
+                          color: Colors.red,
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          alignment: Alignment.centerRight,
+                          child: Icon(Icons.delete, color: Colors.white),
+                        ),
+                        onDismissed: (direction) {
+                          setState(() {
+                            provider.eliminarPedazo(pedazo.id);
+                          });
+                        },
+                        child: PedazoListItem(
+                          pedazo: pedazo,
+                          isSelected: provider.selectedIds.contains(pedazo.id),
+                          onToggle: () => provider.toggleSelection(pedazo.id),
+                        ),
                       );
                     },
                   ),
