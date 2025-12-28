@@ -28,9 +28,7 @@ class _FiltroScreensState extends State<FiltroScreens> {
     _searchController.addListener(() {
       context.read<PedazosProvider>().cambiarQuery(_searchController.text);
     });
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<PedazosProvider>().cargarPedazos();
-    });
+    
   }
 
   @override

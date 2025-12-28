@@ -17,4 +17,8 @@ class Pageprovider extends ChangeNotifier {
     pageIndex = 2;
     notifyListeners();
   }
+  void pageVerHistroial() {
+    pageIndex = 3;
+    notifyListeners();
+  }
 }

@@ -46,6 +46,7 @@ class PedazosProvider extends ChangeNotifier {
       _error = '';
       notifyListeners();
       // Simular operación asíncrona
+      _pedazos.add(pedazo);
       await _repository.registrarPedazo(pedazo);
       _isLoading = false;
       notifyListeners();
@@ -114,9 +115,7 @@ class PedazosProvider extends ChangeNotifier {
       final numero = pedazo.numero.toLowerCase();
 
       // Retornar true si algún campo contiene la búsqueda
-      return para.contains(query) ||
-          de.contains(query) ||
-          numero.contains(query);
+      return para.contains(query) || numero.contains(query);
     }).toList();
   }
 

@@ -178,6 +178,7 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
                           provider.agregarPedazo(pedazo);
                           MessageUtils.showPedazoAdded(context);
                           limpiar();
+                          
                         }
                       },
                     ),

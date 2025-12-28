@@ -1,3 +1,4 @@
+import 'package:administracion_de_pedazos/providers/PedazosProvider.dart';
 import 'package:administracion_de_pedazos/providers/pageProvider.dart';
 import 'package:administracion_de_pedazos/settings/pages.dart';
 import 'package:administracion_de_pedazos/widgets/font.dart';
@@ -12,6 +13,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<PedazosProvider>().cargarPedazos();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final provider = context.read<Pageprovider>();
