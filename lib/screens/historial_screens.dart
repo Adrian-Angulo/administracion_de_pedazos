@@ -56,9 +56,10 @@ class HistorialScreens extends StatelessWidget {
                 final item = items[index];
 
                 return TimelineItem(
-                  titulo: "Pedazo #402 - Lote A",
+                  titulo: "Camilo",
+                  valor: 2000,
                   estado: "Registrado",
-                  hora: '09:30 AM',
+                  hora: '9:30 am',
                   isCompleted: false,
                   isLast: index == items.length - 1,
                 );
