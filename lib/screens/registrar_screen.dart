@@ -1,7 +1,9 @@
 import 'package:administracion_de_pedazos/formatters/CurrencyInputFormatter.dart';
 import 'package:administracion_de_pedazos/formatters/formatters.dart';
 import 'package:administracion_de_pedazos/models/Pedazo.dart';
+import 'package:administracion_de_pedazos/models/pedazo_historial.dart';
 import 'package:administracion_de_pedazos/providers/PedazosProvider.dart';
+import 'package:administracion_de_pedazos/providers/historial_providers.dart';
 import 'package:administracion_de_pedazos/utils/message_utils.dart';
 import 'package:administracion_de_pedazos/widgets/card_widget.dart';
 import 'package:administracion_de_pedazos/widgets/font.dart';
@@ -29,6 +31,7 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
   @override
   Widget build(BuildContext context) {
     final provider = context.read<PedazosProvider>();
+    final historialProvider = context.read<HistorialProviders>();
     final colorScheme = Theme.of(context).colorScheme;
 
     void limpiar() {
@@ -175,10 +178,21 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
                             valor: obtenerValorDouble(valorCtrl.text),
                             numero: numeroCtrl.text,
                           );
+                          Pedazohistorial historial = Pedazohistorial(
+                            "0",
+                            remitente: pedazo.remitente,
+                            destinatario: pedazo.destinatario,
+                            valor: pedazo.valor,
+                            numero: pedazo.numero,
+                            hora: "9:30 AM",
+                            estado: "Registrado",
+                            isCompleted: false,
+                          );
+
                           provider.agregarPedazo(pedazo);
+                          historialProvider.agregarHistorial(historial);
                           MessageUtils.showPedazoAdded(context);
                           limpiar();
-                          
                         }
                       },
                     ),

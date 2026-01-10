@@ -1,3 +1,4 @@
+import 'package:administracion_de_pedazos/providers/historial_providers.dart';
 import 'package:administracion_de_pedazos/providers/pageProvider.dart';
 import 'package:administracion_de_pedazos/screens/home_page.dart';
 import 'package:administracion_de_pedazos/settings/theme/them_data.dart';
@@ -24,6 +25,7 @@ class _MainAppState extends State<MainApp> {
       providers: [
         ChangeNotifierProvider(create: (context) => PedazosProvider()),
         ChangeNotifierProvider(create: (context) => Pageprovider()),
+        ChangeNotifierProvider(create: (context) => HistorialProviders()),
       ],
       child: MaterialApp(
         title: 'Administración de Pedazos',

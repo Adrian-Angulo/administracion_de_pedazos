@@ -1,22 +1,27 @@
+
 import 'package:administracion_de_pedazos/screens/linea_tiempo_detalle.dart';
 import 'package:flutter/material.dart';
 
 class TimelineItem extends StatelessWidget {
-  final String titulo;
+  final String remitente;
+  final String destinatario;
+  final double valor;
+  final String numero;
   final String hora;
   final String estado;
   final bool isLast;
   final bool isCompleted;
-  final double valor;
 
   const TimelineItem({
     super.key,
-    required this.titulo,
     required this.hora,
     required this.estado,
-    required this.valor,
     this.isLast = false,
-    this.isCompleted = false,
+    this.isCompleted = true,
+    required this.remitente,
+    required this.destinatario,
+    required this.valor,
+    required this.numero,
   });
 
   @override
@@ -39,12 +44,12 @@ class TimelineItem extends StatelessWidget {
                 width: 50,
                 height: 50,
                 decoration: BoxDecoration(
-                  color: isCompleted ? Colors.green : const Color(0xFF1F3A2E),
+                  color: const Color(0xFF1F3A2E),
                   shape: BoxShape.circle,
                   border: BoxBorder.all(color: Color(0xFF3A4F45), width: 2),
                 ),
                 child: Text(
-                  "404",
+                  numero,
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 15,
@@ -74,7 +79,7 @@ class TimelineItem extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "De: Camilo",
+                          "De: $remitente",
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 15,

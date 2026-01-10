@@ -1,32 +1,30 @@
+import 'package:administracion_de_pedazos/models/pedazo_historial.dart';
+import 'package:administracion_de_pedazos/providers/historial_providers.dart';
 import 'package:administracion_de_pedazos/widgets/TimelineItem.dart';
 import 'package:administracion_de_pedazos/widgets/font.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class HistorialScreens extends StatelessWidget {
+class HistorialScreens extends StatefulWidget {
   const HistorialScreens({super.key});
 
   @override
+  State<HistorialScreens> createState() => _HistorialScreensState();
+}
+
+class _HistorialScreensState extends State<HistorialScreens> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<HistorialProviders>().cargarHistorial();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final items = [
-      {
-        'titulo': 'Pedazo #402 - Lote A',
-        'estado': 'Registrado',
-        'hora': '09:30 AM',
-        'isCompleted': false,
-      },
-      {
-        'titulo': 'Pedazo #401 - Lote A',
-        'estado': 'Registrado',
-        'hora': '10:15 AM',
-        'isCompleted': false,
-      },
-      {
-        'titulo': 'Pedazo #399 - Lote B',
-        'estado': 'Entregado',
-        'hora': '02:15 PM',
-        'isCompleted': true,
-      },
-    ];
+    final lista_historial = context.watch<HistorialProviders>().historial;
 
     return Scaffold(
       appBar: AppBar(
@@ -48,22 +46,37 @@ class HistorialScreens extends StatelessWidget {
             ),
             const SizedBox(height: 16),
 
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: items.length,
-              itemBuilder: (context, index) {
-                final item = items[index];
-
-                return TimelineItem(
-                  titulo: "Camilo",
-                  valor: 2000,
-                  estado: "Registrado",
-                  hora: '9:30 am',
-                  isCompleted: false,
-                  isLast: index == items.length - 1,
-                );
-              },
+            Expanded(
+              child: lista_historial.isEmpty
+                  ? const Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.history, size: 64, color: Colors.grey),
+                          SizedBox(height: 16),
+                          Text(
+                            'No hay historial disponible',
+                            style: TextStyle(color: Colors.grey, fontSize: 16),
+                          ),
+                        ],
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount: lista_historial.length,
+                      itemBuilder: (context, index) {
+                        Pedazohistorial historial = lista_historial[index];
+                        return TimelineItem(
+                          destinatario: historial.destinatario,
+                          remitente: historial.remitente,
+                          numero: historial.numero,
+                          valor: historial.valor,
+                          estado: historial.estado,
+                          hora: historial.hora,
+                          isCompleted: false,
+                          isLast: index == lista_historial.length - 1,
+                        );
+                      },
+                    ),
             ),
           ],
         ),
