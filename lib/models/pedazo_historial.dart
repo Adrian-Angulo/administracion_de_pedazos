@@ -1,13 +1,13 @@
 class Pedazohistorial {
-  final String id;
+  final int id;
   final String remitente;
   final String destinatario;
   final double valor;
   final String numero;
   final String hora;
   final String estado;
-  
-  final bool isCompleted;
+
+  final int isCompleted;
 
   Pedazohistorial(
     this.id, {
@@ -35,14 +35,12 @@ class Pedazohistorial {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'remitente': remitente,
       'destinatario': destinatario,
       'valor': valor,
       'numero': numero,
       'hora': hora,
       'estado': estado,
-      
       'isCompleted': isCompleted,
     };
   }

@@ -179,14 +179,14 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
                             numero: numeroCtrl.text,
                           );
                           Pedazohistorial historial = Pedazohistorial(
-                            "0",
+                            0,
                             remitente: pedazo.remitente,
                             destinatario: pedazo.destinatario,
                             valor: pedazo.valor,
                             numero: pedazo.numero,
                             hora: "9:30 AM",
                             estado: "Registrado",
-                            isCompleted: false,
+                            isCompleted: 0,
                           );
 
                           provider.agregarPedazo(pedazo);
