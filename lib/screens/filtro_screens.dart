@@ -63,6 +63,7 @@ class _FiltroScreensState extends State<FiltroScreens> {
       // Limpiar la selección después de registrar
       provider.eliminacionMultiple();
       provider.limpiarSeletedId();
+      
     }
 
     return Scaffold(

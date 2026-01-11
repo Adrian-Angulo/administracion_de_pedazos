@@ -95,7 +95,10 @@ class DatabaseHelper {
   //obtener historial
   Future<List<Pedazohistorial>> obtenerHistorial() async {
     final db = await database;
-    final List<Map<String, dynamic>> maps = await db.query(_tableName2);
+    final List<Map<String, dynamic>> maps = await db.query(
+      _tableName2,
+      orderBy: 'id DESC',
+    );
 
     // Mapea la lista de Maps a una lista de objetos Pedazo
     return List.generate(maps.length, (i) {
