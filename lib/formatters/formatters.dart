@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 double obtenerValorDouble(String texto) {
   final limpio = texto.replaceAll(RegExp(r'[^0-9]'), '');
@@ -13,4 +14,10 @@ String formatCOP(num value, {bool showSymbol = false}) {
   );
 
   return formatter.format(value);
+}
+
+Future<String> formatTime() async {
+  await initializeDateFormatting('es_CO', null);
+  final formatter = DateFormat('hh:mm a', 'es_CO');
+  return formatter.format(DateTime.now());
 }

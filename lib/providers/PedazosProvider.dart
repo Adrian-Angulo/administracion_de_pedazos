@@ -33,13 +33,8 @@ class PedazosProvider extends ChangeNotifier {
   }
 
   // 3. Métodos públicos con validación
-  Future<bool> agregarPedazo(Pedazo pedazo) async {
+  Future<int> agregarPedazo(Pedazo pedazo) async {
     // Validación
-    if (_pedazos.contains(pedazo)) {
-      _error = 'El pedazo ya existe';
-      notifyListeners();
-      return false;
-    }
 
     try {
       _isLoading = true;
@@ -47,15 +42,12 @@ class PedazosProvider extends ChangeNotifier {
       notifyListeners();
       // Simular operación asíncrona
       _pedazos.add(pedazo);
-      await _repository.registrarPedazo(pedazo);
+      int id = await _repository.registrarPedazo(pedazo);
       _isLoading = false;
       notifyListeners();
-      return true;
+      return id;
     } catch (e) {
-      _error = 'Error al agregar pedazo: $e';
-      _isLoading = false;
-      notifyListeners();
-      return false;
+      throw Exception("error: $e");
     }
   }
 

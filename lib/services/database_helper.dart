@@ -36,6 +36,7 @@ class DatabaseHelper {
         await db.execute("""
         CREATE TABLE $_tableName2(
           id INTEGER PRIMARY KEY AUTOINCREMENT, 
+          pedazo_id INTEGER,
           remitente TEXT NOT NULL, 
           destinatario TEXT NOT NULL, 
           valor REAL NOT NULL, 
@@ -104,6 +105,7 @@ class DatabaseHelper {
     return List.generate(maps.length, (i) {
       return Pedazohistorial(
         maps[i]['id'],
+        maps[i]['pedazo_id'],
         remitente: maps[i]['remitente'],
         destinatario: maps[i]['destinatario'],
         valor: maps[i]['valor'],

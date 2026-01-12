@@ -169,7 +169,7 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
                     PrimaryActionButton(
                       label: "Registrar Entrega",
                       icon: Icons.check_circle,
-                      onPressed: () {
+                      onPressed: () async {
                         if (_formKey.currentState!.validate()) {
                           Pedazo pedazo = Pedazo(
                             0,
@@ -178,18 +178,19 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
                             valor: obtenerValorDouble(valorCtrl.text),
                             numero: numeroCtrl.text,
                           );
+                          int pedazoId = await provider.agregarPedazo(pedazo);
                           Pedazohistorial historial = Pedazohistorial(
                             0,
+                            pedazoId,
                             remitente: pedazo.remitente,
                             destinatario: pedazo.destinatario,
                             valor: pedazo.valor,
                             numero: pedazo.numero,
-                            hora: "9:30 AM",
+                            hora: await formatTime(),
                             estado: "Registrado",
                             isCompleted: 0,
                           );
 
-                          provider.agregarPedazo(pedazo);
                           historialProvider.agregarHistorial(historial);
                           MessageUtils.showPedazoAdded(context);
                           limpiar();

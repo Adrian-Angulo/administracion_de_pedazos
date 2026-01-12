@@ -1,5 +1,6 @@
 class Pedazohistorial {
   final int id;
+  final int pedazo_id;
   final String remitente;
   final String destinatario;
   final double valor;
@@ -10,7 +11,8 @@ class Pedazohistorial {
   final int isCompleted;
 
   Pedazohistorial(
-    this.id, {
+    this.id, 
+    this.pedazo_id, {
     required this.remitente,
     required this.destinatario,
     required this.valor,
@@ -23,6 +25,7 @@ class Pedazohistorial {
   factory Pedazohistorial.fromJson(Map<String, dynamic> json) {
     return Pedazohistorial(
       json['id'],
+      json['pedazo_id'],
       remitente: json['remitente'],
       destinatario: json['destinatario'],
       valor: json['valor'],
@@ -35,6 +38,7 @@ class Pedazohistorial {
 
   Map<String, dynamic> toJson() {
     return {
+      'pedazo_id': pedazo_id,
       'remitente': remitente,
       'destinatario': destinatario,
       'valor': valor,
