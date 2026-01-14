@@ -1,5 +1,7 @@
+import 'package:administracion_de_pedazos/formatters/formatters.dart';
 import 'package:administracion_de_pedazos/models/pedazo_historial.dart';
 import 'package:administracion_de_pedazos/providers/historial_providers.dart';
+import 'package:administracion_de_pedazos/widgets/DateBadgeWidget.dart';
 import 'package:administracion_de_pedazos/widgets/TimelineItem.dart';
 import 'package:administracion_de_pedazos/widgets/font.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +38,11 @@ class _HistorialScreensState extends State<HistorialScreens> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [DateBadgeWidget(dateText: formatDateTime(),)],
+            ),
+            const SizedBox(height: 16),
             const Text(
               'Línea de tiempo',
               style: TextStyle(
@@ -44,6 +51,7 @@ class _HistorialScreensState extends State<HistorialScreens> {
                 fontWeight: FontWeight.bold,
               ),
             ),
+
             const SizedBox(height: 16),
 
             Expanded(

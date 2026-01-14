@@ -53,7 +53,6 @@ class _FiltroScreensState extends State<FiltroScreens> {
 
     /// Registra la entrega de los pedazos seleccionados
     void registerDelivery() async {
-      MessageUtils.showSingleDelivery(context);
       for (var id in provider.selectedIds) {
         final Pedazo pedazo = provider.obtenerPedazoPorId(id);
         final historial = Pedazohistorial(
@@ -72,6 +71,7 @@ class _FiltroScreensState extends State<FiltroScreens> {
       // Limpiar la selección después de registrar
       provider.eliminacionMultiple();
       provider.limpiarSeletedId();
+      MessageUtils.showSingleDelivery(context);
     }
 
     return Scaffold(

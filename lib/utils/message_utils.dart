@@ -67,6 +67,32 @@ class MessageUtils {
     );
   }
 
+  static bool alertConfirmation(
+    BuildContext context,
+    int cantidad,
+   
+    
+  ) {
+    bool confirm = false;
+    AlertDialog(
+      title: Text("Confirmacion"),
+      content: Text("Esta seguro de entregar $cantidad"),
+      actions: [
+        FilledButton(
+          onPressed: () {
+            confirm = true;
+          },
+          child: Text("Si"),
+        ),
+        FilledButton(
+          onPressed: (){},
+          child: Text("No"),
+        ),
+      ],
+    );
+    return confirm;
+  }
+
   /// Muestra mensaje cuando falla una entrega
   static void showDeliveryError(BuildContext context, {String? errorDetails}) {
     CustomMessageWidget.showSnackBar(

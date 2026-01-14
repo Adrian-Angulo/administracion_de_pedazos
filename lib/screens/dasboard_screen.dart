@@ -73,7 +73,9 @@ class _DasboardScreenState extends State<DasboardScreen> {
                 SecundaryActionButton(
                   label: "Ver Historial",
                   icon: Icons.history,
-                  onPressed: () {},
+                  onPressed: () {
+                    provider.pageVerHistroial();
+                  },
                 ),
               ],
             ),
