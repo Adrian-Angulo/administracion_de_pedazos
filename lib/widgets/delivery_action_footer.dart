@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 class DeliveryActionFooter extends StatelessWidget {
   final int selectedCount;
   final VoidCallback onRegister;
-  final String? scheduleText;
+  
   final double totalValue;
 
   const DeliveryActionFooter({
     super.key,
     required this.selectedCount,
     required this.onRegister,
-    this.scheduleText,
+    
     required this.totalValue,
   });
 

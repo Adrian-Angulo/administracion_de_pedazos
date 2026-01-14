@@ -72,7 +72,9 @@ class _HistorialScreensState extends State<HistorialScreens> {
                           valor: historial.valor,
                           estado: historial.estado,
                           hora: historial.hora,
-                          isCompleted: false,
+                          isCompleted: historial.isCompleted == 0
+                              ? false
+                              : true,
                           isLast: index == lista_historial.length - 1,
                         );
                       },

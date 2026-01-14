@@ -13,6 +13,10 @@ class Pedazo {
     required this.numero,
   });
 
+  set id(int newId) => id = newId;
+  
+  
+
   factory Pedazo.fromJson(Map<String, dynamic> json) {
     return Pedazo(
       json['id'],

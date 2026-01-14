@@ -179,6 +179,7 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
                             numero: numeroCtrl.text,
                           );
                           int pedazoId = await provider.agregarPedazo(pedazo);
+                          provider.cargarPedazos();
                           Pedazohistorial historial = Pedazohistorial(
                             0,
                             pedazoId,

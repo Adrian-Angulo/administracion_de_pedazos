@@ -67,6 +67,15 @@ class PedazosProvider extends ChangeNotifier {
     }
   }
 
+  /// Retorna un pedazo específico según su ID
+  Pedazo obtenerPedazoPorId(int id) {
+    try {
+      return _pedazos.firstWhere((pedazo) => pedazo.id == id);
+    } catch (e) {
+      throw Exception("error al buscar el pedazo por id: $e");
+    }
+  }
+
   Future<void> eliminacionMultiple() async {
     for (var id in _selectedIds.toList()) {
       eliminarPedazo(id);

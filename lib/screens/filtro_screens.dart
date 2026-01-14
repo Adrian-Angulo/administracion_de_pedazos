@@ -1,5 +1,8 @@
+import 'package:administracion_de_pedazos/formatters/formatters.dart';
 import 'package:administracion_de_pedazos/models/Pedazo.dart';
+import 'package:administracion_de_pedazos/models/pedazo_historial.dart';
 import 'package:administracion_de_pedazos/providers/PedazosProvider.dart';
+import 'package:administracion_de_pedazos/providers/historial_providers.dart';
 import 'package:administracion_de_pedazos/utils/message_utils.dart';
 import 'package:administracion_de_pedazos/widgets/delivery_action_footer.dart';
 import 'package:administracion_de_pedazos/widgets/pedazo_list_item.dart';
@@ -28,7 +31,6 @@ class _FiltroScreensState extends State<FiltroScreens> {
     _searchController.addListener(() {
       context.read<PedazosProvider>().cambiarQuery(_searchController.text);
     });
-    
   }
 
   @override
@@ -41,6 +43,7 @@ class _FiltroScreensState extends State<FiltroScreens> {
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<PedazosProvider>();
+    final historialProvider = context.watch<HistorialProviders>();
 
     // Obtener la lista de pedazos filtrados
     final filteredPedazos = provider.getFilteredPedazos();
@@ -48,22 +51,27 @@ class _FiltroScreensState extends State<FiltroScreens> {
     // Verificar si todos están seleccionados
     final allSelected = provider.areAllSelected(filteredPedazos);
 
-    // Calcular el total de los seleccionados
-    final total = provider.calculateTotal();
-
-    // Obtener la hora actual para el mensaje de registro
-    final now = DateTime.now();
-    final scheduleText =
-        'Total: \$${total.toStringAsFixed(0)} - Hoy a las ${now.hour}:${now.minute.toString().padLeft(2, '0')}';
-
     /// Registra la entrega de los pedazos seleccionados
-    void registerDelivery() {
+    void registerDelivery() async {
       MessageUtils.showSingleDelivery(context);
-
+      for (var id in provider.selectedIds) {
+        final Pedazo pedazo = provider.obtenerPedazoPorId(id);
+        final historial = Pedazohistorial(
+          0,
+          pedazo.id,
+          remitente: pedazo.remitente,
+          destinatario: pedazo.destinatario,
+          valor: pedazo.valor,
+          numero: pedazo.numero,
+          hora: await formatTime(),
+          estado: "Entregado",
+          isCompleted: 1,
+        );
+        historialProvider.agregarHistorial(historial);
+      }
       // Limpiar la selección después de registrar
       provider.eliminacionMultiple();
       provider.limpiarSeletedId();
-      
     }
 
     return Scaffold(
@@ -188,7 +196,6 @@ class _FiltroScreensState extends State<FiltroScreens> {
             totalValue: provider.calculateTotal(),
             selectedCount: provider.selectedIds.length,
             onRegister: registerDelivery,
-            scheduleText: scheduleText,
           ),
         ],
       ),
