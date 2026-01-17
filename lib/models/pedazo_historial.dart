@@ -5,19 +5,19 @@ class Pedazohistorial {
   final String destinatario;
   final double valor;
   final String numero;
-  final String hora;
+  final DateTime fecha;
   final String estado;
 
   final int isCompleted;
 
   Pedazohistorial(
-    this.id, 
+    this.id,
     this.pedazo_id, {
     required this.remitente,
     required this.destinatario,
     required this.valor,
     required this.numero,
-    required this.hora,
+    required this.fecha,
     required this.estado,
     required this.isCompleted,
   });
@@ -30,7 +30,7 @@ class Pedazohistorial {
       destinatario: json['destinatario'],
       valor: json['valor'],
       numero: json['numero'],
-      hora: json['hora'],
+      fecha: DateTime.parse(json['fecha']),
       estado: json['estado'],
       isCompleted: json['isCompleted'],
     );
@@ -43,7 +43,7 @@ class Pedazohistorial {
       'destinatario': destinatario,
       'valor': valor,
       'numero': numero,
-      'hora': hora,
+      'fecha': fecha.toIso8601String(),
       'estado': estado,
       'isCompleted': isCompleted,
     };
@@ -51,6 +51,6 @@ class Pedazohistorial {
 
   @override
   String toString() {
-    return 'Pedazohistorial(id: $id, remitente: $remitente, destinatario: $destinatario, valor: $valor, numero: $numero, hora: $hora, estado: $estado, isCompleted: $isCompleted)';
+    return 'Pedazohistorial(id: $id, remitente: $remitente, destinatario: $destinatario, valor: $valor, numero: $numero, fecha: $fecha, estado: $estado, isCompleted: $isCompleted)';
   }
 }

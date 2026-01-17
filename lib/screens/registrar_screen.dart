@@ -187,7 +187,7 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
                             destinatario: pedazo.destinatario,
                             valor: pedazo.valor,
                             numero: pedazo.numero,
-                            hora: await formatTime(),
+                            fecha: DateTime.now(),
                             estado: "Registrado",
                             isCompleted: 0,
                           );

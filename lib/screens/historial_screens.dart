@@ -1,7 +1,5 @@
-import 'package:administracion_de_pedazos/formatters/formatters.dart';
 import 'package:administracion_de_pedazos/models/pedazo_historial.dart';
 import 'package:administracion_de_pedazos/providers/historial_providers.dart';
-import 'package:administracion_de_pedazos/widgets/DateBadgeWidget.dart';
 import 'package:administracion_de_pedazos/widgets/TimelineItem.dart';
 import 'package:administracion_de_pedazos/widgets/font.dart';
 import 'package:flutter/material.dart';
@@ -24,9 +22,27 @@ class _HistorialScreensState extends State<HistorialScreens> {
     });
   }
 
+  Future<void> _seleccionarFecha(
+    BuildContext context,
+    DateTime? fechaSeleccionada,
+  ) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: fechaSeleccionada ?? DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2030),
+    );
+
+    if (picked != null && picked != fechaSeleccionada) {
+      context.read<HistorialProviders>().cambiarFechaSelecionada(picked);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final lista_historial = context.watch<HistorialProviders>().historial;
+    final providerHistorial = context.watch<HistorialProviders>();
+    final fechaSeleccionada = providerHistorial.fechaSeleccionada;
+    final listaHistorial = providerHistorial.filtrarHistorial();
 
     return Scaffold(
       appBar: AppBar(
@@ -39,23 +55,44 @@ class _HistorialScreensState extends State<HistorialScreens> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [DateBadgeWidget(dateText: formatDateTime(),)],
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              'Línea de tiempo',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Línea de tiempo',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+
+                GestureDetector(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      border: Border.all(color: Colors.green),
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Text(
+                      "${fechaSeleccionada?.day}/${fechaSeleccionada?.month}/${fechaSeleccionada?.year}",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+
+                  onTap: () => _seleccionarFecha(context, fechaSeleccionada),
+                ),
+              ],
             ),
 
             const SizedBox(height: 16),
 
             Expanded(
-              child: lista_historial.isEmpty
+              child: listaHistorial.isEmpty
                   ? const Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -70,20 +107,20 @@ class _HistorialScreensState extends State<HistorialScreens> {
                       ),
                     )
                   : ListView.builder(
-                      itemCount: lista_historial.length,
+                      itemCount: listaHistorial.length,
                       itemBuilder: (context, index) {
-                        Pedazohistorial historial = lista_historial[index];
+                        Pedazohistorial historial = listaHistorial[index];
                         return TimelineItem(
                           destinatario: historial.destinatario,
                           remitente: historial.remitente,
                           numero: historial.numero,
                           valor: historial.valor,
                           estado: historial.estado,
-                          hora: historial.hora,
+                          fecha: historial.fecha,
                           isCompleted: historial.isCompleted == 0
                               ? false
                               : true,
-                          isLast: index == lista_historial.length - 1,
+                          isLast: index == listaHistorial.length - 1,
                         );
                       },
                     ),

@@ -7,14 +7,14 @@ class TimelineItem extends StatelessWidget {
   final String destinatario;
   final double valor;
   final String numero;
-  final String hora;
+  final DateTime fecha;
   final String estado;
   final bool isLast;
   final bool isCompleted;
 
   const TimelineItem({
     super.key,
-    required this.hora,
+    required this.fecha,
     required this.estado,
     this.isLast = false,
     this.isCompleted = true,
@@ -144,6 +144,7 @@ class TimelineItem extends StatelessWidget {
                   // estado
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Container(
                         padding: const EdgeInsets.symmetric(
@@ -166,7 +167,7 @@ class TimelineItem extends StatelessWidget {
                       ),
                       SizedBox(height: 4),
                       Text(
-                        hora,
+                        "${formatTime(fecha)}",
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 15,

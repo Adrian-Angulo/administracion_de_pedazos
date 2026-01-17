@@ -62,7 +62,7 @@ class _FiltroScreensState extends State<FiltroScreens> {
           destinatario: pedazo.destinatario,
           valor: pedazo.valor,
           numero: pedazo.numero,
-          hora: await formatTime(),
+          fecha: DateTime.now(),
           estado: "Entregado",
           isCompleted: 1,
         );

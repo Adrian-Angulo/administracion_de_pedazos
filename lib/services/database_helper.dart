@@ -41,7 +41,7 @@ class DatabaseHelper {
           destinatario TEXT NOT NULL, 
           valor REAL NOT NULL, 
           numero TEXT NOT NULL, 
-          hora TEXT NOT NULL, 
+          fecha TEXT NOT NULL, 
           estado TEXT NOT NULL, 
           isCompleted INTEGER NOT NULL DEFAULT 0
         )
@@ -111,7 +111,7 @@ class DatabaseHelper {
         valor: maps[i]['valor'],
         numero: maps[i]['numero'],
         estado: maps[i]['estado'],
-        hora: maps[i]['hora'],
+        fecha: DateTime.parse( maps[i]['fecha']),
         isCompleted: maps[i]['isCompleted'],
       );
     });
