@@ -16,10 +16,10 @@ String formatCOP(num value, {bool showSymbol = false}) {
   return formatter.format(value);
 }
 
-Future<String> formatTime() async {
-  await initializeDateFormatting('es_CO', null);
-  final formatter = DateFormat('hh:mm a', 'es_CO');
-  return formatter.format(DateTime.now());
+String formatTime(DateTime fecha) {
+  initializeDateFormatting('es_CO', null);
+  final formatter = DateFormat('d \'de\' MMM hh:mm a', 'es_CO');
+  return formatter.format(fecha);
 }
 
 String formatDateTime() {
