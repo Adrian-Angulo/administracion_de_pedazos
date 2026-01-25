@@ -27,3 +27,9 @@ String formatDateTime() {
   final formatter = DateFormat('d \'de\' MMM', 'es_CO');
   return formatter.format(DateTime.now());
 }
+
+String formatHour(DateTime fecha) {
+  initializeDateFormatting('es_CO', null);
+  final formatter = DateFormat('hh:mm a', 'es_CO');
+  return formatter.format(fecha);
+}

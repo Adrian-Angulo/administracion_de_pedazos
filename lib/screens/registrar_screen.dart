@@ -4,6 +4,7 @@ import 'package:administracion_de_pedazos/models/Pedazo.dart';
 import 'package:administracion_de_pedazos/models/pedazo_historial.dart';
 import 'package:administracion_de_pedazos/providers/PedazosProvider.dart';
 import 'package:administracion_de_pedazos/providers/historial_providers.dart';
+import 'package:administracion_de_pedazos/providers/pageProvider.dart';
 import 'package:administracion_de_pedazos/utils/message_utils.dart';
 import 'package:administracion_de_pedazos/widgets/card_widget.dart';
 import 'package:administracion_de_pedazos/widgets/font.dart';
@@ -170,6 +171,7 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
                       label: "Registrar Entrega",
                       icon: Icons.check_circle,
                       onPressed: () async {
+                        
                         if (_formKey.currentState!.validate()) {
                           Pedazo pedazo = Pedazo(
                             0,

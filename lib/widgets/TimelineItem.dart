@@ -98,8 +98,13 @@ class TimelineItem extends StatelessWidget {
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
+                          ],
+                        ),
+                        const SizedBox(height: 4),
+                        Row(
+                          children: [
                             Text(
-                              "Para:",
+                              "Para: ",
                               style: TextStyle(
                                 color: colorScheme.primary,
                                 fontSize: 15,
@@ -167,7 +172,7 @@ class TimelineItem extends StatelessWidget {
                       ),
                       SizedBox(height: 4),
                       Text(
-                        "${formatTime(fecha)}",
+                        formatHour(fecha),
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 15,
