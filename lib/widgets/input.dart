@@ -52,7 +52,7 @@ class Input extends StatelessWidget {
                 Text(
                   label,
                   style: TextStyle(
-                    fontSize: 13,
+                    fontSize: 16,
                     fontWeight: FontWeight.w500,
                     color: colorScheme.onSurface.withOpacity(0.55),
                   ),

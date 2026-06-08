@@ -4,7 +4,6 @@ import 'package:administracion_de_pedazos/models/Pedazo.dart';
 import 'package:administracion_de_pedazos/models/pedazo_historial.dart';
 import 'package:administracion_de_pedazos/providers/PedazosProvider.dart';
 import 'package:administracion_de_pedazos/providers/historial_providers.dart';
-import 'package:administracion_de_pedazos/providers/pageProvider.dart';
 import 'package:administracion_de_pedazos/utils/message_utils.dart';
 import 'package:administracion_de_pedazos/widgets/card_widget.dart';
 import 'package:administracion_de_pedazos/widgets/font.dart';
@@ -81,7 +80,7 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
                       children: [
                         Input(
                           icon: Icons.person,
-                          label: "De (Remitente)",
+                          label: "De (¿Quién lo deja?)",
                           hint: "Nombre...",
                           controller: remitenteCtrl,
                         ),
@@ -93,7 +92,7 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
 
                         Input(
                           icon: Icons.send,
-                          label: "Para (Destinatario)",
+                          label: "Para (¿Para quien?)",
                           hint: "Nombre...",
                           controller: destinatarioCtrl,
                         ),
@@ -110,7 +109,15 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text("Valor del Pedazo"),
+                                    Text(
+                                      "Valor",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
+                                        color: colorScheme.onSurface
+                                            .withOpacity(0.55),
+                                      ),
+                                    ),
                                     TextFormField(
                                       keyboardType:
                                           TextInputType.numberWithOptions(
@@ -124,6 +131,18 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
                                       validator: (value) {
                                         if (value == null || value.isEmpty) {
                                           return 'Este campo es obligatorio';
+                                        }
+                                        final raw = value.replaceAll(
+                                          RegExp(r'[^\d]'),
+                                          '',
+                                        );
+                                        final numericValue =
+                                            double.tryParse(raw) ?? 0;
+                                        if (numericValue < 2000) {
+                                          return 'El valor no puede ser menor a 2.000\$';
+                                        }
+                                        if (numericValue >= 100000) {
+                                          return 'El valor no puede ser mayor a 100.000\$';
                                         }
                                         return null;
                                       },
@@ -171,14 +190,15 @@ class _RegistrarScreenState extends State<RegistrarScreen> {
                       label: "Registrar Entrega",
                       icon: Icons.check_circle,
                       onPressed: () async {
-                        
                         if (_formKey.currentState!.validate()) {
                           Pedazo pedazo = Pedazo(
                             0,
-                            remitente: remitenteCtrl.text.toLowerCase(),
-                            destinatario: destinatarioCtrl.text.toLowerCase(),
-                            valor: obtenerValorDouble(valorCtrl.text),
-                            numero: numeroCtrl.text,
+                            remitente: remitenteCtrl.text.toLowerCase().trim(),
+                            destinatario: destinatarioCtrl.text
+                                .toLowerCase()
+                                .trim(),
+                            valor: obtenerValorDouble(valorCtrl.text.trim()),
+                            numero: numeroCtrl.text.trim(),
                           );
                           int pedazoId = await provider.agregarPedazo(pedazo);
                           provider.cargarPedazos();
